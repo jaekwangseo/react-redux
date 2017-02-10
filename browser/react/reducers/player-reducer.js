@@ -1,17 +1,30 @@
-import { START_PLAYING, STOP_PLAYING } from '../constants';
+import {
+  START_PLAYING,
+  STOP_PLAYING,
+  SET_CURRENT_SONG,
+  SET_LIST
+} from '../constants';
 
-const initialState = {
+export const initialPlayerState = {
   currentSong: {},
   currentSongList: [],
   isPlaying: false,
   progress: 0
 };
 
-export default function (prevState = initialState, action) {
+export default function (state = initialPlayerState, action) {
 
-  const newState = Object.assign({}, prevState);
+  const newState = Object.assign({}, state);
 
   switch (action.type) {
+
+    case SET_CURRENT_SONG:
+      newState.currentSong = action.currentSong;
+      break;
+
+    case SET_LIST:
+      newState.currentSongList = action.currentSongList;
+      break;
 
     case START_PLAYING:
       newState.isPlaying = true;
@@ -22,8 +35,9 @@ export default function (prevState = initialState, action) {
       break;
 
     default:
-      return prevState;
+      return state;
 
   }
+
   return newState;
 }

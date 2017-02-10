@@ -9,6 +9,7 @@ import Albums from '../components/Albums.js';
 import Album from '../components/Album';
 import Sidebar from '../components/Sidebar';
 import Player from '../components/Player';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 
 import { convertAlbum, convertAlbums, convertSong, skip } from '../utils';
 
@@ -16,7 +17,7 @@ export default class AppContainer extends Component {
 
   constructor (props) {
     super(props);
-    this.state = initialState;
+    this.state = Object.assign({}, initialState, store.getState())
 
     this.toggle = this.toggle.bind(this);
     this.toggleOne = this.toggleOne.bind(this);
