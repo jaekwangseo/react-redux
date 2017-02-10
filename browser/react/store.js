@@ -1,13 +1,25 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import reducer from './reducers/root-reducer';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import createLogger from 'redux-logger';
+import thunkMiddleware from 'redux-thunk';
+
+import lyricsReducer  from './reducers/lyrics-reducer';
+import playerReducer from './reducers/player-reducer';
+
+const combinedReducers = combineReducers({
+  lyrics: lyricsReducer,
+  player: playerReducer
+});
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(reducer, /* preloadedState, */ composeEnhancers(
-    applyMiddleware(createLogger())
+const store = createStore(combinedReducers, /* preloadedState, */ composeEnhancers(
+    applyMiddleware(createLogger(), thunkMiddleware)
   ));
 
+
 export default store
+
+
+
 
 

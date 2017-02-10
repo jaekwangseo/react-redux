@@ -2,7 +2,7 @@ import { SET_LYRICS } from '../constants';
 
 const initialState = { text: ''};
 
-export default function reducer (prevState = initialState, action) {
+export default function (prevState = initialState, action) {
 
   switch (action.type) {
 

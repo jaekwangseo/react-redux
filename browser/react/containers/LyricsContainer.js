@@ -1,7 +1,7 @@
 import React from 'react';
 import store from '../store';
 import Lyrics from '../components/Lyrics'
-import { setLyrics } from '../action-creators/lyrics'
+import { setLyrics, fetchLyrics } from '../action-creators/lyrics'
 import axios from 'axios'
 
 
@@ -39,23 +39,27 @@ export default class LyricsContainer extends React.Component {
     this.setState({songQuery: song})
   }
 
-  handleSubmit() {
-
+  handleSubmit(event) {
+    event.preventDefault();
     console.log('handleSubmit called')
 
     if (this.state.artistQuery && this.state.songQuery) {
-      axios.get(`/api/lyrics/${this.state.artistQuery}/${this.state.songQuery}`)
-      .then(res => res.data)
-      .then(data => store.dispatch(setLyrics(data.lyric)))
-      .catch(err => console.error('call to lyrics API failed', err))
+      // axios.get(`/api/lyrics/${this.state.artistQuery}/${this.state.songQuery}`)
+      // .then(res => res.data)
+      // .then(data => store.dispatch(setLyrics(data.lyric)))
+      // .catch(err => console.error('call to lyrics API failed', err))
+      store.dispatch(fetchLyrics(this.state.artistQuery, this.state.songQuery));
     }
+
+
+
   }
 
   render() {
     return (
       <div>
       <Lyrics
-        text={this.state.text}
+        text={this.state.lyrics.text}
         setArtist={this.setArtist}
         setSong={this.setSong}
         artistQuery={this.state.artistQuery}
